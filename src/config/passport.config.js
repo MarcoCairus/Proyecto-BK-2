@@ -13,8 +13,11 @@ const initializePassport = () => {
     passport.use('current', new JWTStrategy(
         {
             jwtFromRequest: ExtractJwt.fromExtractors([(req) => req && req.cookies ? req.cookies["cookieProyecto"] : null]),
+
             secretOrKey: process.env.SECRET_JWT
         },
+        
+
 
         async (jwt_payload, done) => {
             try {
@@ -39,9 +42,11 @@ const initializePassport = () => {
 
             try {
                 const user = await userModel.findOne({ email: username })
+                console.log(user);
+                
 
 
-                if (user) return done(null, false)
+                if (user) return done(null, false, { message: 'User already exists' })
 
                 const newUser = {
                     email: username,
@@ -68,7 +73,7 @@ const initializePassport = () => {
             try {
 
                 const user = await userModel.findOne({ email: username })
-                if (!user) return done(null, false, { message: 'user dont exist' })
+                if (!user) return done(null, false, { message: 'User does not exist' })
                 if (!isValidPassword(user, password)) return done(null, false)
                 return done(null, user)
             } catch (error) {

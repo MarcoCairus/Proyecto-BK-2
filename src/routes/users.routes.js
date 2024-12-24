@@ -9,10 +9,10 @@ const router = Router()
 router.post('/register', passportCall('register'), async (req, res) => {
     try {
 
-        if (!req.user) return res.status(400).send('registration failed')
+        if (!req.user) return res.status(400).send('Registration failed')
         const token = generateToken(req.user)
 
-        res.cookie('cookieProyecto', token, { httpOnly: true }).send('user registed')
+        res.cookie('cookieProyecto', token, { httpOnly: true }).send('User registered')
     } catch (error) {
         res.status(400).send(error)
     }
@@ -22,9 +22,9 @@ router.post('/register', passportCall('register'), async (req, res) => {
 router.post('/login', passportCall('login'), async (req, res) => {
     try {
 
-        if (!req.user) return res.status(400).send('login failed')
+        if (!req.user) return res.status(400).send('Login failed')
         const token = generateToken(req.user)
-        res.cookie('cookieProyecto', token, { httpOnly: true }).send('user loged')
+        res.cookie('cookieProyecto', token, { httpOnly: true }).send('Login successful')
     } catch (error) {
         res.status(400).send(error)
     }
@@ -32,7 +32,7 @@ router.post('/login', passportCall('login'), async (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-    res.clearCookie('cookieProyecto').json({ message: "logout successful" })
+    res.clearCookie('cookieProyecto').json({ message: "Logout successful" })
 
 })
 
