@@ -30,6 +30,7 @@ const initializePassport = () => {
         }
     ))
 
+
     passport.use('register', new LocalStrategy(
         {
             passReqToCallback: true,
@@ -42,7 +43,6 @@ const initializePassport = () => {
 
             try {
                 const user = await userModel.findOne({ email: username })
-                console.log(user);
                 
 
 
@@ -61,6 +61,7 @@ const initializePassport = () => {
                 return done(null, result)
 
             } catch (error) {
+                
                 return done(error)
             }
         }
